@@ -1,13 +1,13 @@
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
 
+var generateBtn = document.querySelector("#generate");
 // Add event listener to generate button   ==========================================================================
 generateBtn.addEventListener("click", writePassword);
 
 alert("Please click 'Generate Password' button to start creating a unique password! \nChoices: lowercase, uppercase, numeric, &/or special characters ");
 
 // List possible criteria for password characters   =====================================================================
-// '.split()' is used to split each character of a string   <--- an alternate method to : ex: var ... = ["a","b", ... ] ]
+// '.split()' is used to split each character of a string   <--- an alternate method to : ex: var ... = ["a","b", ... ]
 var lowercase = "abcdefghijklmnopqrstuvwxyz";
 var low = lowercase.split("");
 var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -44,67 +44,70 @@ function generatePassword() {
 
       if (!confirmL && !confirmU && !confirmN && !confirmS) {                  // if user answers 'no' to all confirm ?'s
         characterSet = alert("You must choose at least 1 criteria of characters to generate a password!");
+        return generatePassword();
       }
 
-      // below: "Array.prototype.concat()" is used.  
+      // below: "Array.prototype.concat()" is used.  ================================================
       // concat() method is used to merge 2 or more arrays. This method doesn't change the existing arrays, but instead returns a new array.
       else if (confirmL && confirmU && confirmN && confirmS) {                // if user answers 'yes' to all confirm ?'s
-        characterSet = character.concat(low, up, num, spec);
+        characterSet = low.concat(up, num, spec);
       }
 
       // if user answers 'yes' to 3 confirm ?'s
       else if (confirmL && confirmU && confirmN) {
-        characterSet = character.concat(low, up, num);
+        characterSet = low.concat(up, num);
       }
       else if (confirmL && confirmU && confirmS) {
-        characterSet = character.concat(low, up, spec);
+        characterSet = low.concat(up, spec);
       }
       else if (confirmU && confirmN && confirmS) {
-        characterSet = character.concat(up, num, spec);
+        characterSet = up.concat(num, spec);
       }
-      else if (confirmL && confirmN && confirmS) { 
-        characterSet = character.concat(low, num, spec);
+      else if (confirmL && confirmN && confirmS) {
+        characterSet = low.concat(num, spec);
       }
 
       // if 'yes' to 2 ?'s
       else if (confirmL && confirmU) {
-        characterSet = character.concat(low, up);
+        characterSet = low.concat(up);
       }
       else if (confirmL && confirmN) {
-        characterSet = character.concat(low, num);
+        characterSet = low.concat(num);
       }
       else if (confirmL && confirmS) {
-        characterSet = character.concat(low, spec);
+        characterSet = low.concat(spec);
       }
       else if (confirmU && confirmN) {
-        characterSet = character.concat(up, num);
+        characterSet = up.concat(num);
       }
       else if (confirmU && confirmS) {
-        characterSet = character.concat(up, spec);
+        characterSet = up.concat(spec);
       }
       else if (confirmN && confirmS) {
-        characterSet = character.concat(num, spec);
+        characterSet = num.concat(spec);
       }
 
       // if only 1 pass criteria is chosen
       else if (confirmL) {
-        characterSet = low;
+        characterSet = lowercase;
       }
       else if (confirmU) {
-        characterSet = up;
+        characterSet = uppercase;
       }
       else if (confirmN) {
-        characterSet = num;
+        characterSet = numeric;
       }
       else if (confirmS) {
-        characterSet = spec;
+        characterSet = special;
       }
 
       // loop for generating the random pass
       pResult = [];
-      for (var i = 0; i<pLength; i++){
-        var pResult += characterSet.charAt(Math.floor(Math.random() * characterSet.length));
+      for (var i = 0; i < pLength; i++) {
+        var random = Math.floor(Math.random() * characterSet.length);
+        pResult += characterSet[random];
       }
-    }
-  return pResult;
+
+      }
+    return pResult;          // (display password) same as ... document.getElementById("password").innerHTML =  pResult;
 }
